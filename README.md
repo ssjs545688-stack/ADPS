@@ -57,6 +57,7 @@ cmake ..
 make -j$(nproc) .
 
 # 4. 실행
+cd ..
 ./build/dms_node
 ```
 
