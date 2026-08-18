@@ -42,16 +42,22 @@ adas_telos/
 본 프로젝트는 CMake를 이용하여 빌드할 수 있습니다.
 
 ```bash
-# 1. 빌드 디렉토리 생성 및 이동
+# 1. 도커환경 진입
+
+docker-compose build
+docker-compose up 
+docker-compose exec dms-app bash
+
+# 2. 빌드 디렉토리 생성 및 이동
 mkdir build
 cd build
 
-# 2. CMake 설정 및 빌드
+# 3. CMake 설정 및 빌드
 cmake ..
-cmake --build .
+make -j$(nproc) .
 
-# 3. 실행
-./ADAS_Telos
+# 4. 실행
+./build/dms_node
 ```
 
 ## 💡 향후 계획 (TODO)
