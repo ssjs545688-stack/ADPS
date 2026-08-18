@@ -13,7 +13,7 @@
 #include <string>
 #include <thread>
 #include <vector>
-
+ 
 #ifdef USE_ONNX_RUNTIME
 #include <onnxruntime/onnxruntime_cxx_api.h>
 #endif
