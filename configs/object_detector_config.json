@@ -1,0 +1,116 @@
+{
+  "_comment": "ADAS 객체 검출 파이프라인 설정 (§1~§8 전체 파라미터)",
+  "hsv": {
+    "_comment_red": "빨강은 HSV 원형 특성상 두 구간(0~10, 170~180) OR 연산 필요",
+    "red_lower1": [
+      0,
+      120,
+      70
+    ],
+    "red_upper1": [
+      10,
+      255,
+      255
+    ],
+    "red_lower2": [
+      170,
+      120,
+      70
+    ],
+    "red_upper2": [
+      180,
+      255,
+      255
+    ],
+    "yellow_lower": [
+      18,
+      100,
+      100
+    ],
+    "yellow_upper": [
+      35,
+      255,
+      255
+    ],
+    "_comment_shadow": "그림자 검출용 상한 (H 무관, S < 40, V < 50)",
+    "shadow_upper": [
+      255,
+      40,
+      50
+    ]
+  },
+  "hybrid": {
+    "_comment": "엣지 밀도 및 객체 검출 ROI 설정",
+    "edge_density": 0.15,
+    "roi_top": 0.3,
+    "roi_bottom": 0.8,
+    "_comment_maxw": "[신규] 여러 차량 그림자가 뭉쳐 하나로 오검출되는 것 방지. 프레임 폭 대비 이 비율 넘는 후보는 제외",
+    "max_object_width_ratio": 0.5
+  },
+  "morphology": {
+    "_comment": "Open=점 노이즈 제거, Close=구멍 메우기·끊김 연결. 홀수 픽셀 크기",
+    "open_kernel_size": 5,
+    "close_kernel_size": 9
+  },
+  "contour": {
+    "_comment": "윤곽선 면적 필터 및 형태 분류 파라미터",
+    "min_area_px2": 500.0,
+    "max_area_px2": 50000.0,
+    "min_object_area_px2": 500.0,
+    "max_object_area_ratio": 0.25,
+    "min_aspect_ratio": 0.5,
+    "max_aspect_ratio": 2.5,
+    "poly_epsilon_ratio": 0.04,
+    "_comment_circ": "원형도 = 4π·Area / Perimeter². 1.0에 가까울수록 원",
+    "circle_threshold": 0.75
+  },
+  "depth": {
+    "_comment": "use_depth=false → Depth Map 없이 동작 (더미 모드)",
+    "use_depth": false,
+    "depth_scale": 0.001,
+    "_comment_inner": "바운딩 박스 내부 샘플 영역 비율 (0.6 = 안쪽 60%)",
+    "inner_ratio": 0.6,
+    "_comment_pct": "낮은 30분위수를 대표 거리로 채택 (배경·이상치 억제)",
+    "percentile": 30.0,
+    "max_valid_depth_m": 15.0,
+    "min_depth_samples": 10,
+    "_comment_mono": "[신규] Depth 카메라 없을 때(use_depth=false)의 폴백. 핀홀 카메라 모델로 bbox 폭 -> 거리 환산 (distance = mono_object_width_m * focal_length_px / bbox_width_px)",
+    "mono_depth_enable": true,
+    "_comment_focal": "실측 보정 전 임시값(1280px, 대략 HFOV 70도 대시캠 가정). 정확도가 중요하면 estimate_monocular_distance() 주석의 실측 절차로 재계산할 것",
+    "focal_length_px": 900.0,
+    "_comment_width": "검출 대상의 가정 실제 폭(m). 지금은 승용차 후면 기준 1.8m 고정값 - 트럭/이륜차 등 클래스별로 다르게 주고 싶으면 알려주세요",
+    "mono_object_width_m": 1.8
+  },
+  "tracker": {
+    "_comment": "CentroidTracker 파라미터. 유클리드 거리 임계값 및 소멸 프레임 수",
+    "max_match_dist_px": 80.0,
+    "max_missing_frames": 15
+  },
+  "risk": {
+    "_comment": "위험도 임계값. CENTER 구역 여부와 AND 조건으로 최종 판정",
+    "warn_dist_m": 4.0,
+    "stop_dist_m": 2.0,
+    "warn_ttc_s": 3.0,
+    "stop_ttc_s": 1.5,
+    "_comment_df": "연속 N프레임 이상 위험 상태 유지 시에만 STOP 발령 (오검출 방지)",
+    "min_danger_frames": 3,
+    "_comment_jump": "[신규] 이전 EMA 거리 대비 이 비율 이상 튀는 값은 오검출로 간주하고 EMA 반영 제외",
+    "max_distance_jump_ratio": 0.5,
+    "_comment_speed": "[신규] closing_speed(및 TTC)를 한 번 더 부드럽게 만드는 EMA 계수",
+    "speed_ema_alpha": 0.3
+  },
+  "ema": {
+    "_comment": "지수 이동 평균 계수. 0에 가까울수록 부드럽고 반응 느림",
+    "alpha": 0.25
+  },
+  "logging": {
+    "enable": true,
+    "obj_log_path": "logs/objects_detail.csv",
+    "frame_log_path": "logs/frame_summary.csv"
+  },
+  "deep": {
+    "enable": true,
+    "model_path": "models/yolov8n.onnx",
+    "confidence_threshold": 0.45
+  }
+}

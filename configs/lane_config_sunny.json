@@ -1,0 +1,46 @@
+{
+  "roi_top_ratio": 0.65,
+  "roi_bottom_ratio": 1.0,
+  "roi_left_ratio": 0.0,
+  "roi_right_ratio": 1.0,
+  "roi_top_left_ratio": 0.20,
+  "roi_top_right_ratio": 0.80,
+  "white_hsv_lower": [
+    0,
+    0,
+    100
+  ],
+  "white_hsv_upper": [
+    180,
+    60,
+    255
+  ],
+  "yellow_hsv_lower": [
+    15,
+    70,
+    100
+  ],
+  "yellow_hsv_upper": [
+    35,
+    255,
+    255
+  ],
+  "gaussian_kernel_size": 5,
+  "sobel_thresh_min": 35,
+  "canny_low_threshold": 50.0,
+  "canny_high_threshold": 150.0,
+  "hough_rho": 1.0,
+  "hough_theta_deg": 1.0,
+  "hough_threshold": 50,
+  "hough_min_line_length": 15.0,
+  "hough_max_line_gap": 100.0,
+  "minimum_absolute_slope": 0.5,
+  "maximum_absolute_slope": 2.5,
+  "lane_width_pixels": 400.0,
+  "lane_width_meters": 3.7,
+  "lookahead_y_ratio": 0.7,
+  "departure_warning_m": 0.5,
+  "departure_stop_m": 0.8,
+  "temporal_alpha": 0.35,
+  "minimum_confidence": 0.25
+}

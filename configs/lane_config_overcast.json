@@ -1,0 +1,53 @@
+{
+  "roi_top_ratio": 0.65,
+  "roi_bottom_ratio": 1.0,
+  "roi_left_ratio": 0.0,
+  "roi_right_ratio": 1.0,
+  "roi_top_left_ratio": 0.20,
+  "roi_top_right_ratio": 0.80,
+  "_comment_white": "안개 속 흰 차선 = '어두운 회색'. V 하한을 130으로 낮추고 S 상한을 50으로 제한하여 하늘·유채색 노이즈 차단",
+  "white_hsv_lower": [
+    0,
+    15,
+    150
+  ],
+  "white_hsv_upper": [
+    180,
+    30,
+    255
+  ],
+  "_comment_yellow": "안개 속 황선 = 탁한 흙색. H 상한을 30으로 좁혀 풀밭(초록) 오인 차단 / S 하한 40으로 낮춰 탁한 노란색 포함 / V 80 이상",
+  "yellow_hsv_lower": [
+    10,
+    40,
+    110
+  ],
+  "yellow_hsv_upper": [
+    35,
+    160,
+    255
+  ],
+  "_comment_blur": "안개 노이즈 억제 → 커널 7",
+  "gaussian_kernel_size": 7,
+  "sobel_thresh_min": 35,
+  "_comment_canny": "컬러 필터 기반 엣지. 그레이스케일 보조 엣지와 OR 합성 사용 → 값 낮게 유지",
+  "canny_low_threshold": 20.0,
+  "canny_high_threshold": 60.0,
+  "hough_rho": 1.0,
+  "hough_theta_deg": 1.0,
+  "_comment_hough": "안개로 끊긴 엣지 연결 강화: threshold↓ maxLineGap↑ minLineLength↓",
+  "hough_threshold": 20,
+  "hough_min_line_length": 20.0,
+  "hough_max_line_gap": 50.0,
+  "minimum_absolute_slope": 0.5,
+  "maximum_absolute_slope": 2.5,
+  "lane_width_pixels": 220.0,
+  "lane_width_meters": 3.7,
+  "lookahead_y_ratio": 0.65,
+  "departure_warning_m": 0.12,
+  "departure_stop_m": 0.20,
+  "temporal_alpha": 0.12,
+  "minimum_confidence": 0.15,
+  "capture_frequency_hz": 10.0,
+  "video_fps": 10.0
+}

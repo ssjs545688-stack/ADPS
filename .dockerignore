@@ -1,0 +1,10 @@
+build/
+build_linux/
+*.avi
+*.png
+.git/
+.qodo/
+vcpkg/
+logs/
+bad/
+good/

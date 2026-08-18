@@ -1,0 +1,30 @@
+# Build directories
+build/
+build_linux/
+vcpkg/
+
+# IDE and Editor folders
+.vscode/
+.idea/
+.vs/
+.qodo/
+out/
+cmake-build-*/
+
+# Output and logs
+output_result.avi
+logs/
+*.log
+*.csv
+*.mp4
+*.avi
+*.mkv
+
+# Ignore models (optional: 주석 처리 해제 시 모델 파일도 제외됨, yolov8n.pt는 약 6.5MB로 작아서 기본적으로 포함시킴)
+# models/
+# *.pt
+# *.onnx
+
+# Ignore OS generated files
+.DS_Store
+Thumbs.db

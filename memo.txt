@@ -1,0 +1,54 @@
+ADAS/객체 탐지 파이프라인 기술 요약
+=================================
+
+1. 상태 추정 및 데이터 필터링
+- Kalman Filter
+  - 객체의 위치와 속도를 예측·보정하여 추적의 연속성을 유지합니다.
+  - 가려짐 또는 일시적 검출 누락 상황에서도 객체를 안정적으로 추적하는 데 사용됩니다.
+
+- EMA Filter
+  - 거리 및 closing speed 값의 노이즈를 지수 이동 평균으로 완화합니다.
+  - 프레임 간 급격한 스파이크를 줄여 TTC 계산의 안정성을 높입니다.
+
+- Hysteresis / Debouncing
+  - 위험 상태 전환 시 연속 프레임 누적을 적용해 순간 노이즈로 인한 채터링을 방지합니다.
+
+2. 딥러닝 및 컴퓨터 비전
+- ONNX Runtime 기반 딥러닝 추론
+  - 경량 YOLO 계열 모델을 사용해 차량 객체를 탐지합니다.
+  - 딥러닝 추론 경로와 기존 기하학적 파이프라인을 하이브리드로 결합합니다.
+
+- NMS (Non-Maximum Suppression)
+  - 중복된 Bounding Box를 제거해 하나의 객체를 하나의 박스로 정리합니다.
+  - 탐지 결과의 중복 오버랩을 줄이는 역할을 합니다.
+
+- Monocular Distance Estimation
+  - Depth/LiDAR가 없을 때, 바운딩박스 폭과 카메라 초점거리 기반으로 거리를 역산합니다.
+  - 위험도 평가의 fallback 수단으로 사용됩니다.
+
+3. 영상 처리 및 전처리
+- HSV Thresholding
+  - HSV 색공간에서 차량/그림자/차선 후보를 효과적으로 분리합니다.
+
+- CLAHE
+  - 어두운 환경에서 로컬 대비를 향상시켜 엣지와 윤곽 검출 성능을 높입니다.
+
+- Sobel / Canny Edge Detection
+  - 영상의 밝기 변화를 추출해 차선 및 객체 경계를 강조합니다.
+
+- Morphological Operations
+  - Open/Close 연산으로 작은 노이즈를 제거하고, 이어진 영역을 정리합니다.
+
+- Geometry-based Shape Classification
+  - 윤곽선의 꼭짓점 수와 circularity를 분석해 객체 형상을 분류합니다.
+
+4. ADAS 및 센서 융합
+- TTC (Time-To-Collision)
+  - 거리와 접근 속도를 기반으로 충돌 가능 시간을 계산합니다.
+  - 위험 단계 판정에 사용됩니다.
+
+- Camera-LiDAR Sensor Fusion
+  - 카메라 기반 거리와 LiDAR 거리 정보를 비교·융합해 더 안정적인 거리값을 얻습니다.
+
+- Risk Level Evaluation
+  - SAFE / WARNING / STOP 상태를 종합적으로 평가해 경고를 생성합니다.

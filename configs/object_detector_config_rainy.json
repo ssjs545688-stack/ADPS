@@ -1,0 +1,95 @@
+{
+  "hsv": {
+    "red_lower1": [
+      0,
+      110,
+      50
+    ],
+    "red_upper1": [
+      10,
+      255,
+      255
+    ],
+    "red_lower2": [
+      170,
+      110,
+      50
+    ],
+    "red_upper2": [
+      180,
+      255,
+      255
+    ],
+    "yellow_lower": [
+      18,
+      90,
+      90
+    ],
+    "yellow_upper": [
+      35,
+      255,
+      255
+    ],
+    "shadow_upper": [
+      255,
+      55,
+      90
+    ]
+  },
+  "hybrid": {
+    "edge_density": 0.13,
+    "roi_top": 0.22,
+    "roi_bottom": 0.82,
+    "max_object_width_ratio": 0.55
+  },
+  "morphology": {
+    "open_kernel_size": 5,
+    "close_kernel_size": 11
+  },
+  "contour": {
+    "min_area_px2": 350.0,
+    "max_area_px2": 65000.0,
+    "poly_epsilon_ratio": 0.05,
+    "circle_threshold": 0.75
+  },
+  "depth": {
+    "use_depth": false,
+    "mono_depth_enable": true,
+    "focal_length_px": 900.0,
+    "mono_object_width_m": 1.8
+  },
+  "black_car": {
+    "enable": true,
+    "hsv_upper": [
+      180,
+      110,
+      100
+    ]
+  },
+  "tracker": {
+    "max_match_dist_px": 85.0,
+    "max_missing_frames": 16
+  },
+  "risk": {
+    "warn_dist_m": 4.2,
+    "stop_dist_m": 2.2,
+    "warn_ttc_s": 3.2,
+    "stop_ttc_s": 1.6,
+    "min_danger_frames": 3,
+    "max_distance_jump_ratio": 0.5,
+    "speed_ema_alpha": 0.3
+  },
+  "ema": {
+    "alpha": 0.25
+  },
+  "logging": {
+    "enable": true,
+    "obj_log_path": "logs/objects_detail.csv",
+    "frame_log_path": "logs/frame_summary.csv"
+  },
+  "deep": {
+    "enable": true,
+    "model_path": "models/yolov8n.onnx",
+    "confidence_threshold": 0.45
+  }
+}
