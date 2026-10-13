@@ -29,13 +29,20 @@ ADAS_Telos는 영상 및 센서 융합 기반의 Advanced Driver Assistance Syst
 ```text
 adas_telos/
 ├── configs/            # 차선 및 객체 탐지 환경 설정 (JSON)
-├── include/            # C++ 헤더 파일
-├── src/                # C++ 소스 코드 (main.cpp, object_detector.cpp 등)
+├── include/            # 기능별 공개 헤더
+├── src/
+│   ├── main.cpp             # 프로그램 진입점
+│   ├── application.cpp      # 설정, 입출력, 조도 전환 및 프레임 처리 흐름
+│   ├── lane_detector.cpp    # 차선 검출 및 시각화
+│   └── object_detector.cpp  # 객체 검출, 추적 및 위험도 평가
 ├── models/             # 딥러닝 가중치 모델 폴더 (yolov8n.pt 등)
 ├── CMakeLists.txt      # CMake 빌드 설정 파일
 ├── Dockerfile          # 컨테이너화 지원 파일
 └── docker-compose.yml  # 다중 컨테이너 실행 스크립트
 ```
+
+`main.cpp`는 `run_application()`을 호출하며, 애플리케이션 흐름은 차선 및
+객체 검출 모듈의 공개 인터페이스를 호출합니다.
 
 ## 🛠️ 빌드 및 실행 (Build & Run)
 
